@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Menu, X, Building2, FileText, Users, Mail, ArrowRight } from 'lucide-react';
 import { Button } from './ui/button';
-import logo from 'figma:asset/4ec4c6baa418ed98087b9743b5ede9ab00b3386d.png';
+import { Logo } from './Logo';
 
 interface NavbarProps {
   activePage?: string;
@@ -108,7 +108,7 @@ export function Navbar({ activePage = 'home', onNavigate }: NavbarProps) {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex-shrink-0 cursor-pointer" onClick={(e) => handleNavClick(e, 'home')}>
-            <img src={logo} alt="Kaizari L&D International" className="h-16" />
+            <Logo className="h-[55px] w-auto" variant="navbar" />
           </div>
 
           {/* Desktop Navigation */}

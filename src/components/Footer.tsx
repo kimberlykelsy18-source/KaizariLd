@@ -1,5 +1,5 @@
 import { Facebook, Twitter, Linkedin, Instagram, Mail, Phone, MapPin } from 'lucide-react';
-import logo from 'figma:asset/4ec4c6baa418ed98087b9743b5ede9ab00b3386d.png';
+import { Logo } from './Logo';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -38,7 +38,7 @@ export function Footer() {
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
           {/* Company Info */}
           <div className="lg:col-span-2">
-            <img src={logo} alt="Kaizari L&D International" className="h-20 mb-4 brightness-0 invert" />
+            <Logo className="h-[55px] w-auto mb-4 brightness-0 invert" variant="footer" />
             <p className="text-gray-300 mb-6">
               Transforming organizations through world-class corporate training and professional development programs.
             </p>
