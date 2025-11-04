@@ -1,44 +1,77 @@
-import { useState } from 'react';
-import { GraduationCap } from 'lucide-react';
-import logo from 'figma:asset/4ec4c6baa418ed98087b9743b5ede9ab00b3386d.png';
-
 interface LogoProps {
   className?: string;
   variant?: 'navbar' | 'footer';
 }
 
 export function Logo({ className = '', variant = 'navbar' }: LogoProps) {
-  const [imageError, setImageError] = useState(false);
-
-  // Fallback logo component
-  const FallbackLogo = () => (
-    <div className={`flex items-center gap-3 ${className}`}>
-      <div className={`${variant === 'navbar' ? 'w-14 h-14' : 'w-12 h-12'} ${variant === 'navbar' ? 'bg-gradient-to-br from-[#005a7c] to-[#f57c00]' : 'bg-white/10'} rounded-lg flex items-center justify-center shadow-lg`}>
-        <GraduationCap className={`${variant === 'navbar' ? 'h-8 w-8' : 'h-7 w-7'} ${variant === 'navbar' ? 'text-white' : 'text-[#f57c00]'}`} />
-      </div>
-      <div className="flex flex-col">
-        <span className={`${variant === 'navbar' ? 'text-[#005a7c]' : 'text-white'} font-bold ${variant === 'navbar' ? 'text-lg' : 'text-lg'} leading-tight`}>
-          Kaizari L&D
-        </span>
-        <span className="text-[#f57c00] text-xs font-semibold leading-tight">
-          International
-        </span>
-      </div>
-    </div>
-  );
-
-  // If image failed to load, show fallback
-  if (imageError) {
-    return <FallbackLogo />;
-  }
-
-  // Try to show the actual logo image
+  // For footer, we want white color; for navbar, we want black
+  const color = variant === 'footer' ? '#ffffff' : '#000000';
+  
   return (
-    <img 
-      src={logo} 
-      alt="Kaizari L&D International" 
+    <svg 
+      viewBox="0 0 320 380" 
       className={className}
-      onError={() => setImageError(true)}
-    />
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ display: 'block' }}
+    >
+      {/* Stylized K symbol */}
+      <g transform="translate(70, 30)">
+        {/* Left diagonal line (main stroke) - slanted from top to bottom */}
+        <line 
+          x1="80" 
+          y1="30" 
+          x2="50" 
+          y2="190" 
+          stroke={color} 
+          strokeWidth="4" 
+          strokeLinecap="round"
+        />
+        
+        {/* Top right diagonal line - from middle of left line to upper right */}
+        <line 
+          x1="65" 
+          y1="110" 
+          x2="140" 
+          y2="40" 
+          stroke={color} 
+          strokeWidth="3.5" 
+          strokeLinecap="round"
+        />
+        
+        {/* Horizontal line - extends to the right from middle */}
+        <line 
+          x1="65" 
+          y1="130" 
+          x2="155" 
+          y2="130" 
+          stroke={color} 
+          strokeWidth="3.5" 
+          strokeLinecap="round"
+        />
+        
+        {/* Curved swoosh - elegant arc wrapping around the junction */}
+        <path 
+          d="M 50 100 Q 40 110, 40 125 Q 40 145, 55 155" 
+          stroke={color} 
+          strokeWidth="3.5" 
+          fill="none"
+          strokeLinecap="round"
+        />
+      </g>
+      
+      {/* Company name text */}
+      <text 
+        x="160" 
+        y="300" 
+        textAnchor="middle" 
+        fill={color} 
+        fontSize="40" 
+        fontWeight="500"
+        fontFamily="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+        letterSpacing="4"
+      >
+        KAIZARI L&D
+      </text>
+    </svg>
   );
 }
