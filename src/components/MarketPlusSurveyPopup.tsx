@@ -1,7 +1,13 @@
 import { useState, useEffect } from 'react';
-import { X, TrendingUp, Calendar, Users, Award } from 'lucide-react';
+import { X, TrendingUp, Calendar, Users, Award, User, Building2 } from 'lucide-react';
 import { Button } from './ui/button';
 import { motion, AnimatePresence } from 'motion/react';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from './ui/dialog';
+import { Label } from './ui/label';
+import { Input } from './ui/input';
+import { RadioGroup, RadioGroupItem } from './ui/radio-group';
+import { Textarea } from './ui/textarea';
+import { toast } from 'sonner@2.0.3';
 
 interface MarketPlusSurveyPopupProps {
   trigger: 'scroll' | 'booking';
@@ -12,6 +18,9 @@ interface MarketPlusSurveyPopupProps {
 export function MarketPlusSurveyPopup({ trigger, onClose, onTakeSurvey }: MarketPlusSurveyPopupProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [hasShown, setHasShown] = useState(false);
+  const [showBookingForm, setShowBookingForm] = useState(false);
+  const [payerType, setPayerType] = useState<'self' | 'company'>('self');
+  const [participantType, setParticipantType] = useState<'individual' | 'company'>('individual');
 
   useEffect(() => {
     if (trigger === 'scroll' && !hasShown) {
@@ -44,16 +53,16 @@ export function MarketPlusSurveyPopup({ trigger, onClose, onTakeSurvey }: Market
   };
 
   const handleRegisterNow = () => {
-    // Scroll to events section or open registration
-    // For now, we'll close the popup - you can customize this
+    // Close the popup and open the booking form
     setIsVisible(false);
+    setShowBookingForm(true);
+  };
+
+  const handleBooking = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast.success('Booking request submitted! We will contact you shortly.');
+    setShowBookingForm(false);
     if (onTakeSurvey) onTakeSurvey();
-    
-    // If on a page with event cards, scroll to them
-    const eventsSection = document.getElementById('events-section');
-    if (eventsSection) {
-      eventsSection.scrollIntoView({ behavior: 'smooth' });
-    }
   };
 
   const handleMaybeLater = () => {
@@ -185,6 +194,113 @@ export function MarketPlusSurveyPopup({ trigger, onClose, onTakeSurvey }: Market
           </motion.div>
         </>
       )}
+      
+      {/* Booking Form Dialog */}
+      <Dialog open={showBookingForm} onOpenChange={setShowBookingForm}>
+        <DialogContent className="max-w-[95vw] sm:max-w-[90vw] md:max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl text-[#005a7c]">Register for Financial Modeling with Excel</DialogTitle>
+            <DialogDescription>November 19-21, 2025 | Secure your spot now!</DialogDescription>
+          </DialogHeader>
+
+          <form onSubmit={handleBooking} className="space-y-6 mt-4">
+            {/* Who Will Be Paying */}
+            <div className="space-y-3">
+              <Label>Who will be paying for this event?</Label>
+              <RadioGroup value={payerType} onValueChange={(value) => setPayerType(value as 'self' | 'company')}>
+                <div className="flex items-center space-x-2 border rounded-lg p-3 hover:bg-gray-50">
+                  <RadioGroupItem value="self" id="self" />
+                  <Label htmlFor="self" className="flex items-center cursor-pointer flex-1">
+                    <User className="h-4 w-4 mr-2 text-[#f57c00]" />
+                    I will pay for myself
+                  </Label>
+                </div>
+                <div className="flex items-center space-x-2 border rounded-lg p-3 hover:bg-gray-50">
+                  <RadioGroupItem value="company" id="company" />
+                  <Label htmlFor="company" className="flex items-center cursor-pointer flex-1">
+                    <Building2 className="h-4 w-4 mr-2 text-[#f57c00]" />
+                    My company will pay
+                  </Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            {/* Participant Type */}
+            <div className="space-y-3">
+              <Label>Are you registering as?</Label>
+              <RadioGroup value={participantType} onValueChange={(value) => setParticipantType(value as 'individual' | 'company')}>
+                <div className="flex items-center space-x-2 border rounded-lg p-3 hover:bg-gray-50">
+                  <RadioGroupItem value="individual" id="individual" />
+                  <Label htmlFor="individual" className="cursor-pointer flex-1">
+                    Individual Professional
+                  </Label>
+                </div>
+                <div className="flex items-center space-x-2 border rounded-lg p-3 hover:bg-gray-50">
+                  <RadioGroupItem value="company" id="company-participant" />
+                  <Label htmlFor="company-participant" className="cursor-pointer flex-1">
+                    Company Representative
+                  </Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            {/* Personal Information */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="firstName">First Name *</Label>
+                <Input id="firstName" required />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="lastName">Last Name *</Label>
+                <Input id="lastName" required />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="email">Email Address *</Label>
+              <Input id="email" type="email" required />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="phone">Phone Number *</Label>
+              <Input id="phone" type="tel" required />
+            </div>
+
+            {/* Company Information (if applicable) */}
+            {(payerType === 'company' || participantType === 'company') && (
+              <>
+                <div className="space-y-2">
+                  <Label htmlFor="companyName">Company Name *</Label>
+                  <Input id="companyName" required />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="jobTitle">Job Title *</Label>
+                  <Input id="jobTitle" required />
+                </div>
+              </>
+            )}
+
+            <div className="space-y-2">
+              <Label htmlFor="participants">Number of Participants *</Label>
+              <Input id="participants" type="number" min="1" defaultValue="1" required />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="specialRequests">Special Requirements or Questions</Label>
+              <Textarea id="specialRequests" rows={4} placeholder="Any dietary requirements, accessibility needs, or questions..." />
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-3 pt-4">
+              <Button type="submit" className="flex-1 bg-[#f57c00] hover:bg-[#d66a00]">
+                Submit Booking Request
+              </Button>
+              <Button type="button" variant="outline" onClick={() => setShowBookingForm(false)} className="sm:w-auto">
+                Cancel
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
     </AnimatePresence>
   );
 }
