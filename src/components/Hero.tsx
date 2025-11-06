@@ -86,12 +86,12 @@ export function Hero({ onNavigate }: HeroProps) {
                 <div className="bg-[#f57c00] p-2 rounded-lg">
                   <Phone className="h-5 w-5" />
                 </div>
-                <div>
+                {/* <div>
                   <div className="font-semibold mb-1">Direct Line: +254 713 664 234</div>
                   <div className="text-sm text-gray-200">
                     Speak directly with our training consultants. Available Monday-Friday, 8AM-6PM EAT
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
 
