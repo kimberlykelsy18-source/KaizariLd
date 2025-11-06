@@ -81,19 +81,19 @@ export function Hero({ onNavigate }: HeroProps) {
             </div>
 
             {/* Call to Action Info */}
-            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4">
+            {/* <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4">
               <div className="flex items-start gap-3">
                 <div className="bg-[#f57c00] p-2 rounded-lg">
                   <Phone className="h-5 w-5" />
                 </div>
-                {/* <div>
+                 <div>
                   <div className="font-semibold mb-1">Direct Line: +254 713 664 234</div>
                   <div className="text-sm text-gray-200">
                     Speak directly with our training consultants. Available Monday-Friday, 8AM-6PM EAT
                   </div>
-                </div> */}
+                </div> 
               </div>
-            </div>
+            </div> */}
 
             <div className="grid grid-cols-3 gap-6 pt-8 border-t border-white/20">
               <div>
