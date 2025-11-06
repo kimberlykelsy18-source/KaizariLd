@@ -1,6 +1,7 @@
 import { Phone, ArrowRight, Calendar } from 'lucide-react';
 import { Button } from './ui/button';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import FinancialPromo from './FinancialPromo';
 
 interface HeroProps {
   onNavigate?: (page: string) => void;
@@ -31,7 +32,7 @@ export function Hero({ onNavigate }: HeroProps) {
   return (
     <section className="relative bg-gradient-to-br from-[#005a7c] to-[#003d54] text-white overflow-hidden">
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')]"></div>
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdp[...]"/>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 relative">
@@ -74,6 +75,11 @@ export function Hero({ onNavigate }: HeroProps) {
               </Button>
             </div>
 
+            {/* Insert the Financial Promo right after the action buttons */}
+            <div className="mt-6">
+              <FinancialPromo />
+            </div>
+
             {/* Call to Action Info */}
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4">
               <div className="flex items-start gap-3">
@@ -108,7 +114,7 @@ export function Hero({ onNavigate }: HeroProps) {
           <div className="relative hidden lg:block">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <ImageWithFallback
-                src="https://images.unsplash.com/photo-1573167101669-476636b96cea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZnJpY2FuJTIwYW1lcmljYW4lMjBidXNpbmVzcyUyMHByb2Zlc3Npb25hbHMlMjB0ZWFtd29ya3xlbnwxfHx8fDE3NjIwMTg0Mjh8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                src="https://images.unsplash.com/photo-1573167101669-476636b96cea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZnJpY2FuJTIwYW1lcmljYW4lMjBidXNpbmVz[...]"
                 alt="Corporate Training"
                 className="w-full h-auto"
               />
