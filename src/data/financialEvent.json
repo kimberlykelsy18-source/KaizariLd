@@ -1,0 +1,14 @@
+{
+  "title": "Financial Modeling With Excel Training",
+  "subtitle": "Advanced hands-on financial modeling for finance professionals",
+  "startDate": "Nov 19, 2025",
+  "endDate": "Nov 21, 2025",
+  "ctaUrl": "https://example.com/register/financial-modeling",
+  "ctaLabel": "Register Now",
+  "speakers": [
+    { "name": "Mel Robbins", "title": "Instructor", "avatar": "/images/speakers/mel-robbins.jpg" },
+    { "name": "James Patterson", "title": "Instructor", "avatar": "/images/speakers/james-patterson.jpg" },
+    { "name": "Patrick Leddin", "title": "Instructor", "avatar": "/images/speakers/patrick-leddin.jpg" },
+    { "name": "Stephen M. R. Covey", "title": "Instructor", "avatar": "/images/speakers/stephen-covey.jpg" }
+  ]
+}
