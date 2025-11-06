@@ -21,7 +21,10 @@ const FinancialPromo: React.FC = () => {
         <ul className={styles.meta}>
           {event.startDate && (
             <li className={styles.metaItem}>
-              <strong>{event.startDate}{event.endDate ? ` — ${event.endDate}` : ''}</strong>
+              <strong>
+                {event.startDate}
+                {event.endDate ? ` — ${event.endDate}` : ''}
+              </strong>
             </li>
           )}
           {event.mode && <li className={styles.metaItem}>{event.mode}</li>}
