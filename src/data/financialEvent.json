@@ -3,6 +3,13 @@
   "subtitle": "Advanced hands-on financial modeling for finance professionals",
   "startDate": "Nov 19, 2025",
   "endDate": "Nov 21, 2025",
-  "ctaUrl": "https://example.com/register/financial-modeling",
-  "ctaLabel": "Register Now" 
+  "mode": "In-Person & Online",
+  "price": "KSh 45,000",
+  "ctaLabel": "Register Now",
+  "speakers": [
+    {
+      "name": "Aurthur Ogonji",
+      "avatar": "/src/assets/aurthur-ogonji.png"
+    }
+  ]
 }

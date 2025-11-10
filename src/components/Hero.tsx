@@ -30,25 +30,25 @@ export function Hero({ onNavigate }: HeroProps) {
   };
 
   return (
-    <section className="relative bg-gradient-to-br from-[#005a7c] to-[#003d54] text-white overflow-hidden">
+    <section className="relative bg-gradient-to-br from-[#005a7c] to-[#003d54] text-white overflow-hidden min-h-[calc(100vh-64px)] flex items-center">
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdp[...]"/>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 relative">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 relative w-full">
+        <div className="grid lg:grid-cols-2 gap-8 items-center">
+          <div className="space-y-6">
             <div className="inline-block px-4 py-2 bg-[#f57c00] rounded-full">
               <span className="text-sm">Expert Corporate Training Solutions</span>
             </div>
             
-            <h1 className="text-4xl md:text-5xl lg:text-6xl leading-tight">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl leading-tight">
               Ready to{' '}
               <span className="text-[#f57c00]">Elevate Your Team's</span>{' '}
               Performance?
             </h1>
             
-            <p className="text-xl text-gray-200">
+            <p className="text-lg md:text-xl text-gray-200">
               Schedule a free discovery call with our training experts. Let's discuss your unique needs 
               and design a tailored program that drives real results for your organization.
             </p>
@@ -76,26 +76,11 @@ export function Hero({ onNavigate }: HeroProps) {
             </div>
 
             {/* Insert the Financial Promo right after the action buttons */}
-            <div className="mt-6">
+            <div className="mt-4">
               <FinancialPromo />
             </div>
 
-            {/* Call to Action Info */}
-            {/* <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4">
-              <div className="flex items-start gap-3">
-                <div className="bg-[#f57c00] p-2 rounded-lg">
-                  <Phone className="h-5 w-5" />
-                </div>
-                 <div>
-                  <div className="font-semibold mb-1">Direct Line: +254 713 664 234</div>
-                  <div className="text-sm text-gray-200">
-                    Speak directly with our training consultants. Available Monday-Friday, 8AM-6PM EAT
-                  </div>
-                </div> 
-              </div>
-            </div> */}
-
-            <div className="grid grid-cols-3 gap-6 pt-8 border-t border-white/20">
+            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/20">
               <div>
                 <div className="text-3xl text-[#f57c00]">25+</div>
                 <div className="text-sm text-gray-300">Companies Trained</div>
