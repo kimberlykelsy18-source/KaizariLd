@@ -137,8 +137,8 @@ const FinancialPromo: React.FC = () => {
       )}
 
       {/* Booking Form Dialog */}
-      <Dialog open={showBookingForm} onOpenChange={setShowBookingForm}>
-        <DialogContent className="fixed top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 max-w-[95vw] sm:max-w-[90vw] md:max-w-2xl max-h-[90vh] overflow-y-auto z-50">
+      <Dialog open={showBookingForm} onOpenChange={setShowBookingForm} modal={true}>
+        <DialogContent className="max-w-[95vw] sm:max-w-[90vw] md:max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-2xl text-[#005a7c]">Book Your Spot</DialogTitle>
             <DialogDescription>{event.title}</DialogDescription>
