@@ -8,8 +8,8 @@ import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 import { Textarea } from './ui/textarea';
 import { toast } from 'sonner@2.0.3';
 import { MarketPlusSurveyPopup } from './MarketPlusSurveyPopup';
+import { ImageWithFallback } from './figma/ImageWithFallback';
 import eventData from '../data/financialEvent.json';
-import trainerImage from '../assets/aurthur-ogonji.png';
 
 const FinancialPromo: React.FC = () => {
   const event = eventData;
@@ -17,6 +17,14 @@ const FinancialPromo: React.FC = () => {
   const [showSurveyPopup, setShowSurveyPopup] = useState(false);
   const [payerType, setPayerType] = useState<'self' | 'company'>('self');
   const [participantType, setParticipantType] = useState<'individual' | 'company'>('individual');
+
+  const getTrainerImage = () => {
+    try {
+      return new URL(`../assets/aurthur-ogonji.png`, import.meta.url).href;
+    } catch {
+      return '';
+    }
+  };
 
   const handleRegisterClick = () => {
     setShowSurveyPopup(true);
@@ -52,8 +60,8 @@ const FinancialPromo: React.FC = () => {
             <div className="flex items-center gap-3 md:gap-4 flex-1 min-w-0">
               <div className="relative flex-shrink-0">
                 <div className="absolute -inset-1 bg-gradient-to-r from-[#f57c00] to-[#ff9800] rounded-full blur-sm opacity-75"></div>
-                <img 
-                  src={trainerImage} 
+                <ImageWithFallback 
+                  src={getTrainerImage()} 
                   alt={event.speakers?.[0]?.name || 'Trainer'} 
                   className="relative w-14 h-14 md:w-16 md:h-16 rounded-full object-cover border-2 border-white/20 shadow-xl"
                 />
