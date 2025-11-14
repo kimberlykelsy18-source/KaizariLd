@@ -104,11 +104,11 @@ export function Navbar({ activePage = 'home', onNavigate }: NavbarProps) {
 
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16 sm:h-20">
           {/* Logo */}
           <div className="flex-shrink-0 cursor-pointer" onClick={(e) => handleNavClick(e, 'home')}>
-            <Logo className="h-[55px] w-auto" variant="navbar" />
+            <Logo className="h-[45px] sm:h-[55px] w-auto" variant="navbar" />
           </div>
 
           {/* Desktop Navigation */}
@@ -225,15 +225,16 @@ export function Navbar({ activePage = 'home', onNavigate }: NavbarProps) {
               variant="ghost"
               size="icon"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="h-10 w-10 sm:h-12 sm:w-12"
             >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isMenuOpen ? <X className="h-5 w-5 sm:h-6 sm:w-6" /> : <Menu className="h-5 w-5 sm:h-6 sm:w-6" />}
             </Button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="lg:hidden pb-4 space-y-1">
+          <div className="lg:hidden pb-3 sm:pb-4 space-y-1 mt-2">
             {menuStructure.map((menu) => (
               <div key={menu.id}>
                 {menu.type === 'single' ? (
@@ -242,7 +243,7 @@ export function Navbar({ activePage = 'home', onNavigate }: NavbarProps) {
                     onClick={(e) => handleNavClick(e, menu.id, menu.isExternal, menu.url)}
                     target={menu.isExternal ? '_blank' : undefined}
                     rel={menu.isExternal ? 'noopener noreferrer' : undefined}
-                    className={`block py-3 px-4 transition-colors cursor-pointer rounded-md border-l-4 ${
+                    className={`block py-2.5 sm:py-3 px-3 sm:px-4 transition-colors cursor-pointer rounded-md border-l-4 text-sm sm:text-base ${
                       activePage === menu.id
                         ? 'text-[#f57c00] bg-[#f57c00]/5 border-l-[#f57c00]'
                         : 'text-gray-700 hover:text-[#f57c00] hover:bg-gray-50 border-l-transparent'
@@ -254,7 +255,7 @@ export function Navbar({ activePage = 'home', onNavigate }: NavbarProps) {
                   <div>
                     <button
                       onClick={() => setOpenMobileMenu(openMobileMenu === menu.id ? null : menu.id)}
-                      className={`w-full text-left py-3 px-4 transition-colors rounded-md border-l-4 ${
+                      className={`w-full text-left py-2.5 sm:py-3 px-3 sm:px-4 transition-colors rounded-md border-l-4 text-sm sm:text-base ${
                         isItemActive(menu.id, menu.items)
                           ? 'text-[#f57c00] bg-[#f57c00]/5 border-l-[#f57c00]'
                           : 'text-gray-700 hover:text-[#f57c00] hover:bg-gray-50 border-l-transparent'
@@ -263,7 +264,7 @@ export function Navbar({ activePage = 'home', onNavigate }: NavbarProps) {
                       {menu.label}
                     </button>
                     {openMobileMenu === menu.id && (
-                      <div className="mt-1 space-y-1 bg-gray-50/50 rounded-md p-2 ml-2">
+                      <div className="mt-1 space-y-1 bg-gray-50/50 rounded-md p-1.5 sm:p-2 ml-1 sm:ml-2">
                         {menu.items?.map((item) => {
                           const Icon = item.icon;
                           return (
@@ -273,7 +274,7 @@ export function Navbar({ activePage = 'home', onNavigate }: NavbarProps) {
                               onClick={(e) => handleNavClick(e, item.id, item.isExternal, item.url)}
                               target={item.isExternal ? '_blank' : undefined}
                               rel={item.isExternal ? 'noopener noreferrer' : undefined}
-                              className={`flex items-start gap-3 py-3 px-3 rounded-md transition-colors border-l-4 ${
+                              className={`flex items-start gap-2 sm:gap-3 py-2 sm:py-3 px-2 sm:px-3 rounded-md transition-colors border-l-4 ${
                                 activePage === item.id
                                   ? 'text-[#f57c00] bg-white border-l-[#f57c00]'
                                   : 'text-gray-600 hover:text-[#f57c00] hover:bg-white border-l-transparent'
@@ -281,17 +282,17 @@ export function Navbar({ activePage = 'home', onNavigate }: NavbarProps) {
                             >
                               {Icon && (
                                 <div 
-                                  className="flex-shrink-0 w-8 h-8 rounded-md flex items-center justify-center"
+                                  className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 rounded-md flex items-center justify-center"
                                   style={{ 
                                     backgroundColor: `${item.color}15`
                                   }}
                                 >
-                                  <Icon className="h-4 w-4" style={{ color: item.color }} />
+                                  <Icon className="h-3 w-3 sm:h-4 sm:w-4" style={{ color: item.color }} />
                                 </div>
                               )}
                               <div className="flex-1">
-                                <div className="text-sm font-medium mb-0.5">{item.label}</div>
-                                <div className="text-xs text-gray-500">{item.description}</div>
+                                <div className="text-xs sm:text-sm font-medium mb-0.5">{item.label}</div>
+                                <div className="text-xs text-gray-500 leading-tight">{item.description}</div>
                               </div>
                             </a>
                           );

@@ -4,8 +4,8 @@ interface LogoProps {
 }
 
 export function Logo({ className = '', variant = 'navbar' }: LogoProps) {
-  // For footer, we want white color; for navbar, we want black
-  const color = variant === 'footer' ? '#ffffff' : '#000000';
+  // For footer, we want white color; for navbar, we want the brand color for better visibility
+  const color = variant === 'footer' ? '#ffffff' : '#005a7c';
   
   return (
     <svg 
