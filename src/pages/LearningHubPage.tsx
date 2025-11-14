@@ -2,14 +2,43 @@ import { Rocket, Clock, Mail, Bell } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Card, CardContent } from '../components/ui/card';
+import { Label } from '../components/ui/label';
+import { Textarea } from '../components/ui/textarea';
+import { Checkbox } from '../components/ui/checkbox';
 import { toast } from 'sonner@2.0.3';
 import { MarketPlusSurveyPopup } from '../components/MarketPlusSurveyPopup';
 
 export function LearningHubPage() {
   const handleNotifySubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast.success('Thank you! We\'ll notify you when the Learning Hub launches.');
+    const formData = new FormData(e.currentTarget);
+    const selectedCourses = formData.getAll('courses');
+    
+    // Log the form data for debugging (remove in production)
+    console.log('Form submitted with:', {
+      email: formData.get('email'),
+      name: formData.get('name'),
+      courses: selectedCourses,
+      customCourse: formData.get('customCourse')
+    });
+    
+    toast.success('Thank you! We\'ll notify you when the Learning Hub launches and include your preferred courses.');
   };
+
+  const courseOptions = [
+    'Financial Modeling & Analysis',
+    'Data Analytics & Visualization',
+    'Project Management',
+    'Leadership & Management',
+    'Digital Marketing',
+    'Business Strategy',
+    'Excel Advanced Techniques',
+    'PowerBI & Tableau',
+    'Risk Management',
+    'Corporate Finance',
+    'Human Resources Management',
+    'Supply Chain Management'
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
@@ -55,33 +84,97 @@ export function LearningHubPage() {
             </p>
 
             {/* Notify Me Form */}
-            <Card className="max-w-xl mx-auto shadow-xl">
+            <Card className="max-w-2xl mx-auto shadow-xl">
               <CardContent className="pt-6">
-                <div className="flex items-center gap-3 mb-4">
+                <div className="flex items-center gap-3 mb-6">
                   <Bell className="h-5 w-5 text-[#f57c00]" />
                   <h3 className="text-lg text-[#005a7c]">Get Notified When We Launch</h3>
                 </div>
                 <form 
                   onSubmit={handleNotifySubmit}
-                  className="flex flex-col sm:flex-row gap-3"
+                  className="space-y-6"
                   name="learning-hub-notify"
                   method="POST"
                   data-netlify="true"
                   data-netlify-honeypot="bot-field"
                 >
                   <input type="hidden" name="form-name" value="learning-hub-notify" />
-                  <Input
-                    type="email"
-                    name="email"
-                    placeholder="Enter your email address"
-                    required
-                    className="flex-1"
-                  />
+                  
+                  {/* Personal Information */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="name">Full Name *</Label>
+                      <Input
+                        id="name"
+                        name="name"
+                        type="text"
+                        placeholder="Enter your full name"
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email Address *</Label>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="Enter your email address"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  {/* Course Preferences */}
+                  <div className="space-y-4">
+                    <div>
+                      <Label className="text-base font-medium text-[#005a7c]">
+                        Which training courses would you like to see on our LMS platform? *
+                      </Label>
+                      <p className="text-sm text-gray-600 mt-1 mb-4">
+                        Select all that interest you (minimum 3 required)
+                      </p>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-64 overflow-y-auto border rounded-lg p-4 bg-gray-50/50">
+                      {courseOptions.map((course, index) => (
+                        <div key={index} className="flex items-center space-x-2">
+                          <Checkbox 
+                            id={`course-${index}`}
+                            name="courses"
+                            value={course}
+                            className="data-[state=checked]:bg-[#f57c00] data-[state=checked]:border-[#f57c00]"
+                          />
+                          <Label 
+                            htmlFor={`course-${index}`}
+                            className="text-sm cursor-pointer leading-tight"
+                          >
+                            {course}
+                          </Label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Custom Course Request */}
+                  <div className="space-y-2">
+                    <Label htmlFor="customCourse">
+                      Any other specific courses you'd like to see? (Optional)
+                    </Label>
+                    <Textarea
+                      id="customCourse"
+                      name="customCourse"
+                      placeholder="Tell us about any other training topics you're interested in..."
+                      rows={3}
+                      className="resize-none"
+                    />
+                  </div>
+
                   <Button 
                     type="submit"
-                    className="bg-[#f57c00] hover:bg-[#d66a00] whitespace-nowrap"
+                    className="w-full bg-[#f57c00] hover:bg-[#d66a00] py-3"
+                    size="lg"
                   >
-                    Notify Me
+                    Notify Me & Share My Preferences
                   </Button>
                 </form>
               </CardContent>
