@@ -24,20 +24,41 @@ export function MarketPlusSurveyPopup({ trigger, onClose, onTakeSurvey }: Market
 
   useEffect(() => {
     if (trigger === 'scroll' && !hasShown) {
+      // Check if popup was already shown in this session
+      const popupShownToday = sessionStorage.getItem('marketplus-popup-shown');
+      const lastShown = localStorage.getItem('marketplus-popup-last-shown');
+      const today = new Date().toDateString();
+      
+      // Don't show if already shown today or in this session
+      if (popupShownToday || lastShown === today) {
+        setHasShown(true);
+        return;
+      }
+
       const handleScroll = () => {
         const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
         
-        // Show after user has scrolled 40% of the page
-        if (scrollPercentage > 40 && !hasShown) {
+        // Show after user has scrolled 70% of the page (less spammy)
+        if (scrollPercentage > 70 && !hasShown) {
           setIsVisible(true);
           setHasShown(true);
+          // Mark as shown in session and for today
+          sessionStorage.setItem('marketplus-popup-shown', 'true');
+          localStorage.setItem('marketplus-popup-last-shown', today);
           // Remove scroll listener after showing once
           window.removeEventListener('scroll', handleScroll);
         }
       };
 
-      window.addEventListener('scroll', handleScroll);
-      return () => window.removeEventListener('scroll', handleScroll);
+      // Add a small delay before enabling scroll detection
+      const timer = setTimeout(() => {
+        window.addEventListener('scroll', handleScroll);
+      }, 3000); // Wait 3 seconds before enabling popup
+
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener('scroll', handleScroll);
+      };
     }
   }, [trigger, hasShown]);
 
@@ -82,17 +103,17 @@ export function MarketPlusSurveyPopup({ trigger, onClose, onTakeSurvey }: Market
             onClick={handleClose}
           />
 
-          {/* Popup - Always centered */}
+          {/* Popup - Always centered and responsive */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-lg w-full mx-4 z-50"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-sm sm:max-w-md md:max-w-lg w-[90vw] sm:w-full mx-auto z-50"
           >
-            <div className="bg-white rounded-2xl shadow-2xl border-2 border-[#f57c00] overflow-hidden">
+            <div className="bg-white rounded-xl sm:rounded-2xl shadow-2xl border-2 border-[#f57c00] overflow-hidden max-h-[85vh] overflow-y-auto">
               {/* Header with gradient and urgency banner */}
-              <div className="bg-gradient-to-r from-[#005a7c] via-[#007a9c] to-[#f57c00] p-6 text-white relative">
+              <div className="bg-gradient-to-r from-[#005a7c] via-[#007a9c] to-[#f57c00] p-4 sm:p-6 text-white relative">
                 <button
                   onClick={handleClose}
                   className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors z-10"
@@ -106,21 +127,21 @@ export function MarketPlusSurveyPopup({ trigger, onClose, onTakeSurvey }: Market
                   NOV 19-21, 2025
                 </div>
 
-                <div className="flex items-start gap-4">
-                  <div className="bg-white/20 p-3 rounded-xl backdrop-blur-sm">
-                    <TrendingUp className="h-8 w-8" />
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <div className="bg-white/20 p-2 sm:p-3 rounded-xl backdrop-blur-sm flex-shrink-0">
+                    <TrendingUp className="h-6 w-6 sm:h-8 sm:w-8" />
                   </div>
-                  <div className="flex-1">
-                    <h3 className="font-bold text-2xl mb-1">Financial Modeling with Excel</h3>
-                    <p className="text-sm text-white/95">Master Essential Skills for Career Growth</p>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-bold text-lg sm:text-2xl mb-1 leading-tight">Financial Modeling with Excel</h3>
+                    <p className="text-xs sm:text-sm text-white/95">Master Essential Skills for Career Growth</p>
                   </div>
                 </div>
               </div>
 
               {/* Content */}
-              <div className="p-6">
+              <div className="p-4 sm:p-6">
                 <div className="mb-5">
-                  <p className="text-gray-700 mb-4">
+                  <p className="text-gray-700 mb-4 text-sm sm:text-base">
                     {trigger === 'booking' 
                       ? "Don't miss out on our most popular training! Join our Financial Modeling with Excel course from November 19-21 and transform your career."
                       : "Level up your career with our comprehensive Financial Modeling with Excel training from November 19-21. Seats are filling fast!"
@@ -133,7 +154,7 @@ export function MarketPlusSurveyPopup({ trigger, onClose, onTakeSurvey }: Market
                       <Award className="h-5 w-5 text-[#f57c00]" />
                       <span className="font-semibold text-gray-900">Why Join This Training?</span>
                     </div>
-                    <ul className="space-y-2.5 text-sm text-gray-700">
+                    <ul className="space-y-2 sm:space-y-2.5 text-xs sm:text-sm text-gray-700">
                       <li className="flex items-start gap-2">
                         <span className="text-[#f57c00] mt-0.5 font-bold">✓</span>
                         <span><strong>Hands-on practice</strong> with real-world Excel models</span>
@@ -155,13 +176,13 @@ export function MarketPlusSurveyPopup({ trigger, onClose, onTakeSurvey }: Market
                 </div>
 
                 {/* Training Details Bar */}
-                <div className="flex items-center justify-between bg-gray-50 rounded-lg p-3 mb-5 border border-gray-200">
-                  <div className="flex items-center gap-2 text-sm">
-                    <Calendar className="h-4 w-4 text-[#005a7c]" />
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-gray-50 rounded-lg p-3 mb-5 border border-gray-200 gap-2 sm:gap-0">
+                  <div className="flex items-center gap-2 text-xs sm:text-sm">
+                    <Calendar className="h-3 w-3 sm:h-4 sm:w-4 text-[#005a7c]" />
                     <span className="text-gray-700 font-semibold">Nov 19-21, 2025</span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm">
-                    <Users className="h-4 w-4 text-[#005a7c]" />
+                  <div className="flex items-center gap-2 text-xs sm:text-sm">
+                    <Users className="h-3 w-3 sm:h-4 sm:w-4 text-[#005a7c]" />
                     <span className="text-gray-700 font-semibold text-[#f57c00]">Limited Spots</span>
                   </div>
                 </div>
@@ -170,10 +191,10 @@ export function MarketPlusSurveyPopup({ trigger, onClose, onTakeSurvey }: Market
                 <div className="flex flex-col gap-3">
                   <Button
                     onClick={handleRegisterNow}
-                    className="w-full bg-gradient-to-r from-[#f57c00] to-[#ff9500] hover:from-[#d66a00] hover:to-[#e08500] text-white shadow-lg hover:shadow-xl transition-all group py-6"
+                    className="w-full bg-gradient-to-r from-[#f57c00] to-[#ff9500] hover:from-[#d66a00] hover:to-[#e08500] text-white shadow-lg hover:shadow-xl transition-all group py-4 sm:py-6"
                   >
-                    <span className="font-semibold text-base">Register Now</span>
-                    <TrendingUp className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                    <span className="font-semibold text-sm sm:text-base">Register Now</span>
+                    <TrendingUp className="ml-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
                   
                   <Button
