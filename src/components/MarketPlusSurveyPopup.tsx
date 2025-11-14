@@ -216,6 +216,7 @@ export function MarketPlusSurveyPopup({ trigger, onClose, onTakeSurvey }: Market
                   Join professionals who have enhanced their skills with us
                 </p>
               </div>
+              </div>
             </div>
           </motion.div>
         </>
