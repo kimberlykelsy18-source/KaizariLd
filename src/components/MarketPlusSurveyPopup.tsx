@@ -99,7 +99,7 @@ export function MarketPlusSurveyPopup({ trigger, onClose, onTakeSurvey }: Market
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9998]"
             onClick={handleClose}
           />
 
@@ -109,9 +109,14 @@ export function MarketPlusSurveyPopup({ trigger, onClose, onTakeSurvey }: Market
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-sm sm:max-w-md md:max-w-lg w-[90vw] sm:w-full mx-auto z-50"
+            className="fixed inset-0 flex items-center justify-center p-4 z-[9999]"
+            style={{ pointerEvents: 'none' }}
           >
-            <div className="bg-white rounded-xl sm:rounded-2xl shadow-2xl border-2 border-[#f57c00] overflow-hidden max-h-[85vh] overflow-y-auto">
+            <div 
+              className="max-w-sm sm:max-w-md md:max-w-lg w-full"
+              style={{ pointerEvents: 'auto' }}
+            >
+              <div className="bg-white rounded-xl sm:rounded-2xl shadow-2xl border-2 border-[#f57c00] overflow-hidden max-h-[85vh] overflow-y-auto">
               {/* Header with gradient and urgency banner */}
               <div className="bg-gradient-to-r from-[#005a7c] via-[#007a9c] to-[#f57c00] p-4 sm:p-6 text-white relative">
                 <button
