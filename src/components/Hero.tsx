@@ -1,4 +1,4 @@
-import { Phone, ArrowRight, Calendar } from 'lucide-react';
+import { Phone, ArrowRight } from 'lucide-react';
 import { Button } from './ui/button';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import FinancialPromo from './FinancialPromo';
@@ -12,22 +12,6 @@ export function Hero({ onNavigate }: HeroProps) {
     window.location.href = 'tel:+254713664234';
   };
 
-  const handleViewCalendar = () => {
-    if (onNavigate) {
-      // Navigate to events page
-      onNavigate('events');
-      // Wait for page to load, then scroll to calendar section
-      setTimeout(() => {
-        const calendarSection = document.querySelector('.training-calendar-section');
-        if (calendarSection) {
-          calendarSection.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 300);
-    } else {
-      // If no navigation handler, just scroll to events section
-      document.getElementById('events')?.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <section className="relative bg-gradient-to-br from-[#005a7c] to-[#003d54] text-white overflow-hidden min-h-[calc(100vh-64px)] flex items-center">
@@ -62,16 +46,6 @@ export function Hero({ onNavigate }: HeroProps) {
                 <Phone className="mr-2 h-5 w-5" />
                 Book Discovery Call
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              
-              <Button
-                size="lg"
-                variant="outline"
-                className="bg-white/10 border-white text-white hover:bg-white hover:text-[#005a7c]"
-                onClick={handleViewCalendar}
-              >
-                <Calendar className="mr-2 h-5 w-5" />
-                View Training Calendar
               </Button>
             </div>
 
