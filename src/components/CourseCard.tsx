@@ -1,5 +1,4 @@
 import { Button } from './ui/button';
-import Image from 'next/image';
 
 interface CourseCardProps {
   title: string;
@@ -19,13 +18,15 @@ export function CourseCard(props: CourseCardProps) {
 
   const handleRegisterClick = () => {
     // placeholder - open registration modal or navigate to course page
-    window.location.href = '/courses';
+    if (typeof window !== 'undefined') {
+      window.location.href = '/courses';
+    }
   };
 
   return (
     <div className="bg-white border rounded-lg overflow-hidden shadow-sm">
-      <div className="relative h-40 w-full">
-        <Image src={image} alt={title} layout="fill" objectFit="cover" />
+      <div className="relative h-40 w-full bg-gray-100 overflow-hidden">
+        <img src={image} alt={title} loading="lazy" className="w-full h-full object-cover" />
       </div>
 
       <div className="p-4">
@@ -38,7 +39,7 @@ export function CourseCard(props: CourseCardProps) {
         </div>
 
         {/* Pricing and register area - updated with WhatsApp CTA */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mt-4">
           <div>
             <div className="text-sm text-gray-600">Starting from</div>
             <div className="text-2xl text-[#f57c00]">{price.individual}</div>
