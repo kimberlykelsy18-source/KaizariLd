@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Toaster } from './components/ui/sonner';
 import { PromoBar } from './components/PromoBar';
-import Navbar from './components/Navbar';
+import { Navbar } from './components/Navbar'
 import { HomePage } from './pages/HomePage';
 import { CourseCatalog } from './pages/CourseCatalog';
 import { EventsPage } from './pages/EventsPage';
