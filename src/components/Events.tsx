@@ -1,28 +1,8 @@
 import { EventCard } from './EventCard';
 
 export function Events() {
+  // Keep non-2025 events. Removed the Financial Modeling (Nov 2025) course entry.
   const events = [
-    {
-      title: 'Financial Modeling with Excel Training',
-      description: 'Master advanced Excel techniques for financial analysis and modeling',
-      date: 'November 19-21, 2025',
-      duration: '3 Days | 9:00 AM - 5:00 PM',
-      slotsRemaining: 10,
-      image: 'https://images.unsplash.com/photo-1653565685060-e15e492a7fda?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxibGFjayUyMGFmcmljYW4lMjBidXNpbmVzcyUyMHRyYWluaW5nJTIwc2Vzc2lvbnxlbnwxfHx8fDE3NjIwMTg0Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-      details: `Comprehensive 3-day intensive training program covering:
-
-• Advanced Excel Functions & Formulas
-• Financial Statement Analysis
-• Building Dynamic Financial Models
-• Scenario Planning & Sensitivity Analysis
-• Data Visualization & Dashboard Creation
-• Best Practices in Financial Modeling
-
-Perfect for finance professionals, analysts, and managers looking to enhance their Excel skills and financial modeling capabilities.
-
-Includes: Course materials, certificate of completion, and lifetime access to resources.`,
-      type: 'course' as const,
-    },
     {
       title: 'Market + Product Research Survey',
       description: 'Help us shape the future of corporate training - Share your insights!',
