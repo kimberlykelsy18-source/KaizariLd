@@ -45,7 +45,7 @@ export function CourseCard(props: CourseCardProps) {
             <div className="text-2xl text-[#f57c00]">{price.individual}</div>
           </div>
           <div className="flex gap-3">
-            <Button 
+            <Button
               onClick={handleRegisterClick}
               className="bg-[#f57c00] hover:bg-[#d66a00] text-white"
             >
