@@ -49,7 +49,9 @@ export default function App() {
       case 'events':
         return <EventsPage />;
       case 'lms':
-        return <LearningHubPage />;
+        // Redirect directly to external LMS
+        window.location.href = 'https://lms.kaizarildinternational.com';
+        return null;
       case 'portal':
         return <PartnerTrainerPortal />;
       case 'blogs':

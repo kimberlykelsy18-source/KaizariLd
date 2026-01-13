@@ -17,6 +17,7 @@ const FinancialPromo: React.FC = () => {
   const [showSurveyPopup, setShowSurveyPopup] = useState(false);
   const [payerType, setPayerType] = useState<'self' | 'company'>('self');
   const [participantType, setParticipantType] = useState<'individual' | 'company'>('individual');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const getTrainerImage = () => {
     try {
@@ -35,10 +36,32 @@ const FinancialPromo: React.FC = () => {
     setShowBookingForm(true);
   };
 
-  const handleBooking = (e: React.FormEvent) => {
+  const handleBooking = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast.success('Booking request submitted! We will contact you shortly.');
-    setShowBookingForm(false);
+    setIsSubmitting(true);
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+
+      if (response.ok) {
+        toast.success('Registration received! A sales representative will reach out to you shortly with pricing details and next steps.', { duration: 6000 });
+        setShowBookingForm(false);
+        form.reset();
+      } else {
+        toast.error('Something went wrong. Please try again or contact us directly.');
+      }
+    } catch (error) {
+      toast.error('Something went wrong. Please try again or contact us directly.');
+    }
+
+    setIsSubmitting(false);
   };
 
   return (
@@ -90,19 +113,13 @@ const FinancialPromo: React.FC = () => {
                   {event.startDate && (
                     <div className="flex items-center gap-1 text-gray-400">
                       <Calendar className="h-3 w-3 text-[#f57c00]" />
-                      <span className="hidden sm:inline">{event.startDate} - {event.endDate}</span>
-                      <span className="sm:hidden">{event.startDate}</span>
+                      <span>{event.startDate} (Dates TBD)</span>
                     </div>
                   )}
                   {event.mode && (
                     <div className="flex items-center gap-1 text-gray-400">
                       <Clock className="h-3 w-3 text-[#f57c00]" />
                       <span>{event.mode}</span>
-                    </div>
-                  )}
-                  {event.price && (
-                    <div className="px-2 py-0.5 bg-white/10 rounded-full text-white font-semibold">
-                      {event.price}
                     </div>
                   )}
                 </div>
@@ -144,21 +161,31 @@ const FinancialPromo: React.FC = () => {
             <DialogDescription>{event.title}</DialogDescription>
           </DialogHeader>
 
-          <form onSubmit={handleBooking} className="space-y-6 mt-4">
+          <form
+            name="financial-training-registration"
+            method="POST"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            onSubmit={handleBooking}
+            className="space-y-6 mt-4"
+          >
+            <input type="hidden" name="form-name" value="financial-training-registration" />
+            <input type="hidden" name="bot-field" />
+            <input type="hidden" name="eventTitle" value={event.title} />
             {/* Who Will Be Paying */}
             <div className="space-y-3">
               <Label>Who will be paying for this event?</Label>
-              <RadioGroup value={payerType} onValueChange={(value) => setPayerType(value as 'self' | 'company')}>
+              <RadioGroup name="payerType" value={payerType} onValueChange={(value) => setPayerType(value as 'self' | 'company')}>
                 <div className="flex items-center space-x-2 border rounded-lg p-3 hover:bg-gray-50">
-                  <RadioGroupItem value="self" id="self" />
-                  <Label htmlFor="self" className="flex items-center cursor-pointer flex-1">
+                  <RadioGroupItem value="self" id="fin-self" />
+                  <Label htmlFor="fin-self" className="flex items-center cursor-pointer flex-1">
                     <User className="h-4 w-4 mr-2 text-[#f57c00]" />
                     I will pay for myself
                   </Label>
                 </div>
                 <div className="flex items-center space-x-2 border rounded-lg p-3 hover:bg-gray-50">
-                  <RadioGroupItem value="company" id="company" />
-                  <Label htmlFor="company" className="flex items-center cursor-pointer flex-1">
+                  <RadioGroupItem value="company" id="fin-company" />
+                  <Label htmlFor="fin-company" className="flex items-center cursor-pointer flex-1">
                     <Building2 className="h-4 w-4 mr-2 text-[#f57c00]" />
                     My company will pay
                   </Label>
@@ -169,16 +196,16 @@ const FinancialPromo: React.FC = () => {
             {/* Participant Type */}
             <div className="space-y-3">
               <Label>Are you registering as?</Label>
-              <RadioGroup value={participantType} onValueChange={(value) => setParticipantType(value as 'individual' | 'company')}>
+              <RadioGroup name="participantType" value={participantType} onValueChange={(value) => setParticipantType(value as 'individual' | 'company')}>
                 <div className="flex items-center space-x-2 border rounded-lg p-3 hover:bg-gray-50">
-                  <RadioGroupItem value="individual" id="individual" />
-                  <Label htmlFor="individual" className="cursor-pointer flex-1">
+                  <RadioGroupItem value="individual" id="fin-individual" />
+                  <Label htmlFor="fin-individual" className="cursor-pointer flex-1">
                     Individual Professional
                   </Label>
                 </div>
                 <div className="flex items-center space-x-2 border rounded-lg p-3 hover:bg-gray-50">
-                  <RadioGroupItem value="company" id="company-participant" />
-                  <Label htmlFor="company-participant" className="cursor-pointer flex-1">
+                  <RadioGroupItem value="company" id="fin-company-participant" />
+                  <Label htmlFor="fin-company-participant" className="cursor-pointer flex-1">
                     Company Representative
                   </Label>
                 </div>
@@ -188,52 +215,52 @@ const FinancialPromo: React.FC = () => {
             {/* Personal Information */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="firstName">First Name *</Label>
-                <Input id="firstName" required />
+                <Label htmlFor="fin-firstName">First Name *</Label>
+                <Input id="fin-firstName" name="firstName" required />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="lastName">Last Name *</Label>
-                <Input id="lastName" required />
+                <Label htmlFor="fin-lastName">Last Name *</Label>
+                <Input id="fin-lastName" name="lastName" required />
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email">Email Address *</Label>
-              <Input id="email" type="email" required />
+              <Label htmlFor="fin-email">Email Address *</Label>
+              <Input id="fin-email" name="email" type="email" required />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="phone">Phone Number *</Label>
-              <Input id="phone" type="tel" required />
+              <Label htmlFor="fin-phone">Phone Number *</Label>
+              <Input id="fin-phone" name="phone" type="tel" required />
             </div>
 
             {/* Company Information (if applicable) */}
             {(payerType === 'company' || participantType === 'company') && (
               <>
                 <div className="space-y-2">
-                  <Label htmlFor="companyName">Company Name *</Label>
-                  <Input id="companyName" required />
+                  <Label htmlFor="fin-companyName">Company Name *</Label>
+                  <Input id="fin-companyName" name="companyName" required />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="jobTitle">Job Title *</Label>
-                  <Input id="jobTitle" required />
+                  <Label htmlFor="fin-jobTitle">Job Title *</Label>
+                  <Input id="fin-jobTitle" name="jobTitle" required />
                 </div>
               </>
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="participants">Number of Participants *</Label>
-              <Input id="participants" type="number" min="1" defaultValue="1" required />
+              <Label htmlFor="fin-participants">Number of Participants *</Label>
+              <Input id="fin-participants" name="participants" type="number" min="1" defaultValue="1" required />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="specialRequests">Special Requirements or Questions</Label>
-              <Textarea id="specialRequests" rows={4} placeholder="Any dietary requirements, accessibility needs, or questions..." />
+              <Label htmlFor="fin-specialRequests">Special Requirements or Questions</Label>
+              <Textarea id="fin-specialRequests" name="specialRequests" rows={4} placeholder="Any dietary requirements, accessibility needs, or questions..." />
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 pt-4">
-              <Button type="submit" className="flex-1 bg-[#f57c00] hover:bg-[#d66a00]">
-                Submit Booking Request
+              <Button type="submit" disabled={isSubmitting} className="flex-1 bg-[#f57c00] hover:bg-[#d66a00]">
+                {isSubmitting ? 'Submitting...' : 'Submit Booking Request'}
               </Button>
               <Button type="button" variant="outline" onClick={() => setShowBookingForm(false)} className="sm:w-auto">
                 Cancel

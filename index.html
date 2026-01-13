@@ -10,6 +10,55 @@
     <body>
       <div id="root"></div>
       <script type="module" src="/src/main.tsx"></script>
+
+      <!-- Hidden forms for Netlify Forms detection -->
+      <form name="hero-registration" netlify netlify-honeypot="bot-field" hidden>
+        <input type="text" name="form-name" />
+        <input type="text" name="bot-field" />
+        <input type="text" name="payerType" />
+        <input type="text" name="participantType" />
+        <input type="text" name="firstName" />
+        <input type="text" name="lastName" />
+        <input type="email" name="email" />
+        <input type="tel" name="phone" />
+        <input type="text" name="companyName" />
+        <input type="text" name="jobTitle" />
+        <input type="text" name="trainingInterest" />
+        <input type="number" name="participants" />
+        <textarea name="specialRequests"></textarea>
+      </form>
+
+      <form name="event-registration" netlify netlify-honeypot="bot-field" hidden>
+        <input type="text" name="form-name" />
+        <input type="text" name="bot-field" />
+        <input type="text" name="eventTitle" />
+        <input type="text" name="payerType" />
+        <input type="text" name="participantType" />
+        <input type="text" name="firstName" />
+        <input type="text" name="lastName" />
+        <input type="email" name="email" />
+        <input type="tel" name="phone" />
+        <input type="text" name="companyName" />
+        <input type="text" name="jobTitle" />
+        <input type="number" name="participants" />
+        <textarea name="specialRequests"></textarea>
+      </form>
+
+      <form name="financial-training-registration" netlify netlify-honeypot="bot-field" hidden>
+        <input type="text" name="form-name" />
+        <input type="text" name="bot-field" />
+        <input type="text" name="eventTitle" />
+        <input type="text" name="payerType" />
+        <input type="text" name="participantType" />
+        <input type="text" name="firstName" />
+        <input type="text" name="lastName" />
+        <input type="email" name="email" />
+        <input type="tel" name="phone" />
+        <input type="text" name="companyName" />
+        <input type="text" name="jobTitle" />
+        <input type="number" name="participants" />
+        <textarea name="specialRequests"></textarea>
+      </form>
     </body>
   </html>
   
