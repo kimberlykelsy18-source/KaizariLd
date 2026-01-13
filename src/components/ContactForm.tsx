@@ -32,13 +32,13 @@ export function ContactForm() {
     {
       icon: <Phone className="h-6 w-6" />,
       title: 'Call Us',
-      content: '+254 713 664 234',
+      content: '+254 713 664234',
       link: 'tel:+254713664234',
     },
     {
       icon: <MapPin className="h-6 w-6" />,
       title: 'Visit Us',
-      content: 'JKUAT Towers 17th floor, Kenyatta Avenue',
+      content: 'JKUAT Towers 17th floor, Kenyatta Avenue, Nairobi',
       link: '#',
     },
   ];

@@ -1,44 +1,40 @@
-import { Star, Quote } from 'lucide-react';
+import { Star, Quote, User } from 'lucide-react';
 import { Card, CardContent } from './ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { Avatar, AvatarFallback } from './ui/avatar';
 
 export function Testimonials() {
   const testimonials = [
     {
-      name: 'Amani Mwangi',
-      role: 'Finance Manager',
-      company: 'Nairobi Finance Group',
-      content: 'The Excel Financial Modeling training exceeded my expectations. I can now build complex models with confidence. The practical examples made all the difference!',
+      name: 'Sarah Mutinda',
+      role: 'Senior Finance Analyst',
+      company: 'ZEP-RE (PTA Reinsurance Company)',
+      content: 'The Financial Modeling training with Kaizarild was transformative for our team. The hands-on Excel techniques and practical case studies have significantly improved how we build and analyze financial models.',
       rating: 5,
-      initials: 'AM',
-      image: 'https://images.unsplash.com/photo-1739300293504-234817eead52?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZnJpY2FuJTIwcHJvZmVzc2lvbmFsJTIwd29tYW4lMjBidXNpbmVzcyUyMHBvcnRyYWl0fGVufDF8fHx8MTc2MjAxODQyOXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+      initials: 'SM',
     },
     {
-      name: 'Jabari Kimani',
-      role: 'Business Analyst',
-      company: 'East Africa Consulting Partners',
-      content: 'Fantastic training experience! The instructors were knowledgeable and patient. I\'ve already applied what I learned to my current projects with great results.',
+      name: 'David Njoroge',
+      role: 'Investment Manager',
+      company: 'ZEP-RE (PTA Reinsurance Company)',
+      content: 'Exceptional training experience! The instructors demonstrated deep expertise in financial modeling. The customized approach to our reinsurance industry needs made the learning immediately applicable.',
       rating: 5,
-      initials: 'JK',
-      image: 'https://images.unsplash.com/photo-1616804827035-f4aa814c14ac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxibGFjayUyMGFtZXJpY2FuJTIwYnVzaW5lc3NtYW4lMjBwcm9mZXNzaW9uYWx8ZW58MXx8fHwxNzYyMDE4NDMwfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+      initials: 'DN',
     },
     {
-      name: 'Zawadi Omondi',
-      role: 'Data Analyst',
-      company: 'Mombasa Tech Solutions',
-      content: 'Best investment in my professional development this year. The training was well-structured and the support materials were excellent. Highly recommend!',
+      name: 'Grace Wambui',
+      role: 'Risk Management Officer',
+      company: 'ZEP-RE (PTA Reinsurance Company)',
+      content: 'Outstanding training program! The Excel advanced features and financial analysis techniques have enhanced our risk assessment capabilities. Highly professional trainers who truly understand corporate needs.',
       rating: 5,
-      initials: 'ZO',
-      image: 'https://images.unsplash.com/photo-1675383094481-3e2088da943b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZnJpY2FuJTIwYnVzaW5lc3MlMjBtYW4lMjBwcm9mZXNzaW9uYWx8ZW58MXx8fHwxNzYyMDE4NDMwfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+      initials: 'GW',
     },
     {
-      name: 'Neema Wanjiku',
-      role: 'HR Coordinator',
-      company: 'Kisumu Metro Services',
-      content: 'The trainers genuinely care about your learning. They took time to answer all my questions and provided additional resources. Worth every penny!',
+      name: 'Peter Ochieng',
+      role: 'Actuarial Analyst',
+      company: 'ZEP-RE (PTA Reinsurance Company)',
+      content: 'The trainers were knowledgeable and patient, ensuring everyone understood the concepts. The practical exercises were directly relevant to our daily work. A valuable investment in professional development.',
       rating: 5,
-      initials: 'NW',
-      image: 'https://images.unsplash.com/photo-1739300293504-234817eead52?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZnJpY2FuJTIwcHJvZmVzc2lvbmFsJTIwd29tYW4lMjBidXNpbmVzcyUyMHBvcnRyYWl0fGVufDF8fHx8MTc2MjAxODQyOXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+      initials: 'PO',
     },
   ];
 
@@ -94,9 +90,8 @@ export function Testimonials() {
                 
                 <div className="flex items-center gap-4">
                   <Avatar className="h-12 w-12 bg-[#005a7c]">
-                    <AvatarImage src={testimonial.image} alt={testimonial.name} />
-                    <AvatarFallback className="text-white">
-                      {testimonial.initials}
+                    <AvatarFallback className="text-white bg-[#005a7c]">
+                      <User className="h-6 w-6" />
                     </AvatarFallback>
                   </Avatar>
                   <div>

@@ -1,7 +1,6 @@
 import { EventCard } from './EventCard';
 
 export function Events() {
-  // Keep non-2025 events. Removed the Financial Modeling (Nov 2025) course entry.
   const events = [
     {
       title: 'Market + Product Research Survey',
@@ -13,11 +12,11 @@ export function Events() {
       details: `We're conducting comprehensive market research to better understand training needs in the corporate sector!
 
 EXCITING REWARDS FOR PARTICIPANTS:
-• 🎁 EVERYONE gets a 15% discount voucher for any future course
-• 🎓 5 LUCKY WINNERS will receive completely FREE courses (worth up to KSh 120,000)
-• 🏆 1 GRAND PRIZE WINNER gets FREE team training for up to 5 people
-• 📚 Early access to new courses (survey participants only)
-• 🎯 Monthly prize draws with more chances to win
+• EVERYONE gets a 15% discount voucher for any future course
+• 5 LUCKY WINNERS will receive completely FREE courses (worth up to KSh 120,000)
+• 1 GRAND PRIZE WINNER gets FREE team training for up to 5 people
+• Early access to new courses (survey participants only)
+• Monthly prize draws with more chances to win
 
 Your Input Matters:
 We want to understand your organization's training challenges, preferences, and future needs. Your feedback will directly influence our upcoming programs and services.
@@ -32,6 +31,33 @@ All responses are confidential and will be used solely for improving our service
 
 Winners will be announced monthly via email and on our website!`,
       type: 'survey' as const,
+    },
+    {
+      title: 'Financial Modeling Training - March 2026',
+      description: 'Comprehensive hands-on financial modeling with Excel training led by Aurthur Ogonji. Master financial model structure, cash flows, projections, and valuation techniques.',
+      date: 'March 2026 (Dates TBD)',
+      duration: '3 Days',
+      slotsRemaining: 20,
+      image: 'https://images.unsplash.com/photo-1526378723388-8b7f4f30f79f?q=80&w=1200&auto=format&fit=crop',
+      details: `Join our comprehensive Financial Modeling Training in March 2026!
+
+LED BY EXPERT TRAINER:
+Aurthur Ogonji - Experienced financial modeling professional
+
+WHAT YOU'LL LEARN:
+• Build professional 3-statement financial models
+• Master Excel techniques for financial analysis
+• Create cash flow projections and forecasts
+• Valuation techniques and sensitivity analysis
+• Best practices for model structure and documentation
+
+DELIVERY OPTIONS:
+• In-Person training sessions
+• Online live sessions available
+• Hybrid options for corporate teams
+
+Register your interest now - a sales representative will contact you with pricing details and available dates.`,
+      type: 'course' as const,
     },
   ];
 

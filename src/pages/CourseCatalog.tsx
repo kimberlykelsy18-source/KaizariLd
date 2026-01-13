@@ -119,15 +119,8 @@ export function CourseCatalog() {
         )}
 
         <div className="text-center mt-12">
-          <p className="text-gray-600 mb-4">All finance courses are available online via our LMS or in-person with a trainer. Available for individuals and corporate groups.</p>
-          <a
-            href="https://wa.me/254713664234"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-[#25D366] text-white px-5 py-3 rounded-md shadow-md"
-          >
-            Contact for pricing / Book via WhatsApp
-          </a>
+          <p className="text-gray-600">All finance courses are available online via our LMS or in-person with a trainer. Available for individuals and corporate groups.</p>
+          <p className="text-sm text-gray-500 mt-2">Register for any course and a sales representative will contact you with pricing details.</p>
         </div>
       </div>
     </div>
