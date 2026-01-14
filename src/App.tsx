@@ -14,6 +14,20 @@ import { Footer } from './components/Footer';
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
 
+  // ---------- GTM Script Injection ----------
+  useEffect(() => {
+    // GTM script
+    const script = document.createElement("script");
+    script.innerHTML = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id=GTM-N54L948V';f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-N54L948V');`;
+    document.head.appendChild(script);
+  }, []);
+  // Replace GTM-XXXX with your GTM container ID
+  // --------------------------------------------
+
   // Handle navigation
   const handleNavigate = (page: string) => {
     setCurrentPage(page);
@@ -76,6 +90,16 @@ export default function App() {
 
   return (
     <div className="min-h-screen">
+      {/* GTM noscript */}
+      <noscript>
+        <iframe
+          src="https://www.googletagmanager.com/ns.html?id=GTM-XXXX"
+          height="0"
+          width="0"
+          style={{ display: "none", visibility: "hidden" }}
+        ></iframe>
+      </noscript>
+
       <Toaster position="top-right" />
       <PromoBar />
       <div className="pt-12">
