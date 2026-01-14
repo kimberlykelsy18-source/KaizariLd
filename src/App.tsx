@@ -18,14 +18,14 @@ export default function App() {
   useEffect(() => {
     // Prevent duplicate script injection
     if (!document.querySelector(`script[src*="www.googletagmanager.com/gtm.js?id=GTM-N54L948V"]`)) {
-      // Initialize dataLayer
+      // Initialize dataLayer before GTM loads
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
         'gtm.start': new Date().getTime(),
         event: 'gtm.js',
       });
 
-      // Create and append GTM script tag
+      // Create and append GTM script
       const gtmScript = document.createElement('script');
       gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N54L948V';
       gtmScript.async = true;
@@ -50,13 +50,11 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Handle hash-based routing (for direct links and back/forward buttons)
+  // Handle hash-based routing (direct links & back/forward buttons)
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '');
-      if (hash) {
-        setCurrentPage(hash);
-      }
+      if (hash) setCurrentPage(hash);
     };
 
     // Set initial page from hash
@@ -79,7 +77,6 @@ export default function App() {
       case 'events':
         return <EventsPage />;
       case 'lms':
-        // Redirect directly to external LMS
         window.location.href = 'https://lms.kaizarildinternational.com';
         return null;
       case 'portal':
@@ -92,9 +89,7 @@ export default function App() {
         // Scroll to contact section on home page
         setTimeout(() => {
           const contactSection = document.getElementById('contact');
-          if (contactSection) {
-            contactSection.scrollIntoView({ behavior: 'smooth' });
-          }
+          if (contactSection) contactSection.scrollIntoView({ behavior: 'smooth' });
         }, 100);
         setCurrentPage('home');
         return <HomePage />;
