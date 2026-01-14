@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Toaster } from './components/ui/sonner';
 import { PromoBar } from './components/PromoBar';
-import { Navbar } from './components/Navbar'
+import { Navbar } from './components/Navbar';
 import { HomePage } from './pages/HomePage';
 import { CourseCatalog } from './pages/CourseCatalog';
 import { EventsPage } from './pages/EventsPage';
@@ -16,16 +16,28 @@ export default function App() {
 
   // ---------- GTM Script Injection ----------
   useEffect(() => {
-    // GTM script
-    const script = document.createElement("script");
-    script.innerHTML = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id=GTM-N54L948V';f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-N54L948V');`;
-    document.head.appendChild(script);
+    // Prevent duplicate script injection
+    if (!document.querySelector(`script[src*="www.googletagmanager.com/gtm.js"]`)) {
+      const script = document.createElement('script');
+      script.innerHTML = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id=GTM-N54L948V';f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-N54L948V');`;
+      document.head.appendChild(script);
+    }
   }, []);
-  // Replace GTM-XXXX with your GTM container ID
+  // --------------------------------------------
+
+  // ---------- SPA Virtual Pageview Push ----------
+  useEffect(() => {
+    // Push a virtual pageview event to GTM every time the route changes
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'pageview',
+      page: currentPage,
+    });
+  }, [currentPage]);
   // --------------------------------------------
 
   // Handle navigation
@@ -93,10 +105,10 @@ export default function App() {
       {/* GTM noscript */}
       <noscript>
         <iframe
-          src="https://www.googletagmanager.com/ns.html?id=GTM-XXXX"
+          src="https://www.googletagmanager.com/ns.html?id=GTM-N54L948V"
           height="0"
           width="0"
-          style={{ display: "none", visibility: "hidden" }}
+          style={{ display: 'none', visibility: 'hidden' }}
         ></iframe>
       </noscript>
 
@@ -104,9 +116,7 @@ export default function App() {
       <PromoBar />
       <div className="pt-12">
         <Navbar activePage={currentPage} onNavigate={handleNavigate} />
-        <main>
-          {renderPage()}
-        </main>
+        <main>{renderPage()}</main>
         <Footer />
       </div>
     </div>
