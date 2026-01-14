@@ -17,21 +17,25 @@ export default function App() {
   // ---------- GTM Script Injection ----------
   useEffect(() => {
     // Prevent duplicate script injection
-    if (!document.querySelector(`script[src*="www.googletagmanager.com/gtm.js"]`)) {
-      const script = document.createElement('script');
-      script.innerHTML = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id=GTM-N54L948V';f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-N54L948V');`;
-      document.head.appendChild(script);
+    if (!document.querySelector(`script[src*="www.googletagmanager.com/gtm.js?id=GTM-N54L948V"]`)) {
+      // Initialize dataLayer
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js',
+      });
+
+      // Create and append GTM script tag
+      const gtmScript = document.createElement('script');
+      gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N54L948V';
+      gtmScript.async = true;
+      document.head.appendChild(gtmScript);
     }
   }, []);
   // --------------------------------------------
 
   // ---------- SPA Virtual Pageview Push ----------
   useEffect(() => {
-    // Push a virtual pageview event to GTM every time the route changes
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
       event: 'pageview',
